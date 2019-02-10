@@ -5,6 +5,7 @@
 
 > Parse and edit the config.xml file of a cordova project.
 
+This project is based on the cordova-config repo (https://github.com/SamVerschueren/cordova-config) and the cordova-config-cli (https://github.com/ragingwind/cordova-config-cli/blob/master/package.json). 
 
 ## Install
 
