@@ -268,16 +268,16 @@ Resolves a promise when the file is written.
 ## CLI Usage
 
 ```sh
-$ cordova-config <actions> <config> <value> <options>
+$ config-cordova <actions> <config> <value> <options>
 ```
 
 ### Examples
 
 ```sh
-$ cordova-config set name "New Name"
-$ cordova-config set name "New Name" --config=../config.xml
-$ cordova-config add hook after_prepare script/after_prepare.js --config=../config.xml
-$ cordova-config rm access-origin "*" --config=../fixtures/config.xml
+$ config-cordova set name "New Name"
+$ config-cordova set name "New Name" --config=../config.xml
+$ config-cordova add hook after_prepare script/after_prepare.js --config=../config.xml
+$ config-cordova rm access-origin "*" --config=../fixtures/config.xml
 ```
 
 ### Actions and configs
@@ -288,7 +288,7 @@ $ cordova-config rm access-origin "*" --config=../fixtures/config.xml
 
 ### Values
 
-See `cordova-config` [APIs](https://github.com/SamVerschueren/cordova-config#api) to find value signature of the method
+See `config-cordova` [APIs](https://github.com/SamVerschueren/cordova-config#api) to find value signature of the method
 
 ### Options
 

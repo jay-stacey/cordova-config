@@ -13,7 +13,7 @@
     "node": ">=6"
   },
   "bin": {
-    "cordova-config": "cli.js"
+    "config-cordova": "cli.js"
   },
   "scripts": {
     "test": "xo && nyc ava",
