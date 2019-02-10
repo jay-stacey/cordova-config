@@ -10,7 +10,7 @@ This project is based on the cordova-config repo (https://github.com/SamVerschue
 ## Install
 
 ```
-npm install --save cordova-config
+npm install --save config-cordova
 ```
 
 
