@@ -265,11 +265,6 @@ Resolves a promise when the file is written.
 
 > Writes the `config.xml` file synchronously.
 
-
-## Related
-
-- [cordova-config-cli](https://github.com/ragingwind/cordova-config-cli) - CLI for this module
-
 ## CLI Usage
 
 ```sh
