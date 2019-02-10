@@ -8,29 +8,28 @@
  */
 
 // module dependencies
-var fs = require('fs');
-var et = require('elementtree');
-var pify = require('pify');
-var Promise = require('pinkie-promise');
+const fs = require('fs-extra');
+const et = require('elementtree');
+const semver = require('semver');
 
 module.exports = (function () {
-	var _this = {
+	const _this = {
 		/**
 		 * This method parses the xml file provided.
 		 *
 		 * @param  {string}	file		The XML file that should be parsed.
 		 * @return {ElementTree}		The XML document.
 		 */
-		parse: function (file) {
-			var contents = fs.readFileSync(file, 'utf-8');
+		parse: file => {
+			let contents = fs.readFileSync(file, 'utf-8');
 
 			if (contents) {
 				// Windows is the BOM. Skip the Byte Order Mark.
 				contents = contents.substring(contents.indexOf('<'));
 			}
 
-			var doc = new et.ElementTree(et.XML(contents));		// eslint-disable-line babel/new-cap
-			var root = doc.getroot();
+			const doc = new et.ElementTree(et.XML(contents));		// eslint-disable-line new-cap
+			const root = doc.getroot();
 
 			if (root.tag !== 'widget') {
 				// Throw an error if widget is not the root tag
@@ -58,7 +57,7 @@ module.exports = (function () {
 	 * @param {string}	id			The ID of the config file.
 	 */
 	Config.prototype.setID = function (id) {
-		var regex = new RegExp('^[0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*(:(0-9)*)*(/?)([a-zA-Z0-9-‌​.?,\'/\\+&amp;%$#_]*)?$');
+		const regex = new RegExp('^[0-9a-zA-Z]([-.w]*[0-9a-zA-Z])*(:(0-9)*)*(/?)([a-zA-Z0-9-‌​.?,\'/\\+&amp;%$#_]*)?$');
 
 		if (!regex.test(id)) {
 			// If the id is not IRI, throw an error.
@@ -91,8 +90,8 @@ module.exports = (function () {
 			text = '';
 		}
 
-		// find the tag
-		var elementTag = this._doc.find('./' + tag);
+		// Find the tag
+		let elementTag = this._doc.find('./' + tag);
 
 		if (!elementTag) {
 			// If no tag exists, create one
@@ -102,13 +101,13 @@ module.exports = (function () {
 			this._root.append(elementTag);
 		}
 
-		// set the text of the tag
+		// Set the text of the tag
 		elementTag.text = text || '';
 
 		elementTag.attrib = {};
 
 		if (attribs !== undefined) {
-			Object.keys(attribs).forEach(function (key) {
+			Object.keys(attribs).forEach(key => {
 				elementTag.set(key, attribs[key]);
 			});
 		}
@@ -131,7 +130,7 @@ module.exports = (function () {
 	 * @param {string}	[website]	The website of the author.
 	 */
 	Config.prototype.setAuthor = function (name, email, website) {
-		var attribs = {};
+		const attribs = {};
 
 		if (email) {
 			attribs.email = email;
@@ -150,9 +149,9 @@ module.exports = (function () {
 	 * @param {string}	version		The version number.
 	 */
 	Config.prototype.setVersion = function (version) {
-		var regex = new RegExp('^[0-9]+.[0-9]+.[0-9]+$');
+	//	Const regex = new RegExp('^[0-9]+.[0-9]+.[0-9]+$');
 
-		if (!regex.test(version)) {
+		if (!semver.valid(version)) {
 			// If the version is not valid, throw an error.
 			throw new Error('Please provide a valid version number.');
 		}
@@ -167,7 +166,7 @@ module.exports = (function () {
 	 * @param {number}	versionCode	The android version code.
 	 */
 	Config.prototype.setAndroidVersionCode = function (versionCode) {
-		var regex = new RegExp('^[0-9]+$');
+		const regex = new RegExp('^[0-9]+$'); // eslint-disable-line unicorn/regex-shorthand
 
 		if (!regex.test(versionCode)) {
 			// If the version is not valid, throw an error.
@@ -184,7 +183,7 @@ module.exports = (function () {
 	 * @param {string}    packageName    The android package name.
 	 */
 	Config.prototype.setAndroidPackageName = function (packageName) {
-		var regex = new RegExp('^[\\w.]+$');
+		const regex = new RegExp('^[\\w.]+$');
 
 		if (!regex.test(packageName)) {
 			// If the name is not valid, throw an error.
@@ -201,7 +200,7 @@ module.exports = (function () {
 	 * @param {string}	version		The iOS CFBundleVersion.
 	 */
 	Config.prototype.setIOSBundleVersion = function (version) {
-		var regex = new RegExp('^[1-9][0-9]*(.[0-9]+){0,2}$');
+		const regex = new RegExp('^[1-9][0-9]*(.[0-9]+){0,2}$'); // eslint-disable-line unicorn/regex-shorthand
 
 		if (!regex.test(version)) {
 			// If the version is not valid, throw an error.
@@ -218,7 +217,7 @@ module.exports = (function () {
 	 * @param {string}    identifier        The iOS CFBundleIdentifier.
 	 */
 	Config.prototype.setIOSBundleIdentifier = function (identifier) {
-		var regex = new RegExp('^[\\w.]+$');
+		const regex = new RegExp('^[\\w.]+$');
 
 		if (!regex.test(identifier)) {
 			// If the identifier is not valid, throw an error.
@@ -236,7 +235,7 @@ module.exports = (function () {
 	 */
 	Config.prototype.setPreference = function (name, value) {
 		// Retrieve the correct preference
-		var preference = this._doc.find('./preference/[@name="' + name + '"]');
+		let preference = this._doc.find('./preference/[@name="' + name + '"]');
 
 		if (preference) {
 			// If the preference already exists, remove it first
@@ -257,10 +256,10 @@ module.exports = (function () {
 	 */
 	Config.prototype.removeAccessOrigins = function () {
 		// Find all the access tags and remove them
-		this._doc.findall('./access').forEach(function (tag) {
+		this._doc.findall('./access').forEach(tag => {
 			// Remove the tag
 			this._root.remove(tag);
-		}.bind(this));
+		});
 	};
 
 	/**
@@ -269,7 +268,7 @@ module.exports = (function () {
 	 * @param {string}	origin		The origin that should be removed.
 	 */
 	Config.prototype.removeAccessOrigin = function (origin) {
-		var accessOrigin = this._doc.find('./access/[@origin="' + origin + '"]');
+		const accessOrigin = this._doc.find('./access/[@origin="' + origin + '"]');
 
 		if (accessOrigin) {
 			// If the access tag exists, remove it
@@ -291,10 +290,10 @@ module.exports = (function () {
 		this.removeAccessOrigin(origin);
 
 		// Create an access tag
-		var accessOrigin = new et.Element('access');
+		const accessOrigin = new et.Element('access');
 		accessOrigin.attrib.origin = origin;
 
-		Object.keys(options).forEach(function (key) {
+		Object.keys(options).forEach(key => {
 			// Iterate over the options object and add the properties
 			accessOrigin.attrib[key] = options[key];
 		});
@@ -311,15 +310,41 @@ module.exports = (function () {
 	 * @param {string}	src			The source of the script.
 	 */
 	Config.prototype.addHook = function (type, src) {
-		var cordovaHookTypes = [
-			'after_build', 'after_compile', 'after_clean', 'after_docs', 'after_emulate',
-			'after_platform_add', 'after_platform_rm', 'after_platform_ls', 'after_plugin_add',
-			'after_plugin_ls', 'after_plugin_rm', 'after_plugin_search', 'after_plugin_install',
-			'after_prepare', 'after_run', 'after_serve', 'before_build', 'before_clean',
-			'before_compile', 'before_docs', 'before_emulate', 'before_platform_add',
-			'before_platform_rm', 'before_platform_ls', 'before_plugin_add', 'before_plugin_ls',
-			'before_plugin_rm', 'before_plugin_search', 'before_plugin_install',
-			'before_plugin_uninstall', 'before_prepare', 'before_run', 'before_serve', 'pre_package'
+		const cordovaHookTypes = [
+			'after_build',
+			'after_compile',
+			'after_clean',
+			'after_docs',
+			'after_emulate',
+			'after_platform_add',
+			'after_platform_rm',
+			'after_platform_ls',
+			'after_plugin_add',
+			'after_plugin_ls',
+			'after_plugin_rm',
+			'after_plugin_search',
+			'after_plugin_install',
+			'after_prepare',
+			'after_run',
+			'after_serve',
+			'before_build',
+			'before_clean',
+			'before_compile',
+			'before_docs',
+			'before_emulate',
+			'before_platform_add',
+			'before_platform_rm',
+			'before_platform_ls',
+			'before_plugin_add',
+			'before_plugin_ls',
+			'before_plugin_rm',
+			'before_plugin_search',
+			'before_plugin_install',
+			'before_plugin_uninstall',
+			'before_prepare',
+			'before_run',
+			'before_serve',
+			'pre_package'
 		];
 
 		if (cordovaHookTypes.indexOf(type) === -1) {
@@ -327,7 +352,7 @@ module.exports = (function () {
 		}
 
 		// Create the hook element
-		var hook = new et.Element('hook');
+		const hook = new et.Element('hook');
 		hook.attrib.type = type;
 		hook.attrib.src = src;
 
@@ -342,7 +367,7 @@ module.exports = (function () {
 	 */
 	Config.prototype.addRawXML = function (raw) {
 		// Parse the raw XML
-		var xml = et.XML(raw);		// eslint-disable-line babel/new-cap
+		const xml = et.XML(raw);		// eslint-disable-line new-cap
 
 		// Append the XML
 		this._root.append(xml);
@@ -354,7 +379,7 @@ module.exports = (function () {
 	 * @returns {Promise}			A promise that resolves when the file is written.
 	 */
 	Config.prototype.write = function () {
-		return pify(fs.writeFile, Promise)(this._file, this._doc.write({indent: 4}), 'utf8');
+		return fs.writeFile(this._file, this._doc.write({indent: 4}), 'utf-8');
 	};
 
 	/**

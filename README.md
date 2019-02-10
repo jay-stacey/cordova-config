@@ -13,7 +13,7 @@ npm install --save cordova-config
 ```
 
 
-## Usage
+## Programmatic Usage
 
 ```js
 const Config = require('cordova-config');
@@ -268,6 +268,36 @@ Resolves a promise when the file is written.
 ## Related
 
 - [cordova-config-cli](https://github.com/ragingwind/cordova-config-cli) - CLI for this module
+
+## CLI Usage
+
+```sh
+$ cordova-config <actions> <config> <value> <options>
+```
+
+### Examples
+
+```sh
+$ cordova-config set name "New Name"
+$ cordova-config set name "New Name" --config=../config.xml
+$ cordova-config add hook after_prepare script/after_prepare.js --config=../config.xml
+$ cordova-config rm access-origin "*" --config=../fixtures/config.xml
+```
+
+### Actions and configs
+
+- set: name, desc, author, version, android-version, ios-version
+- add: preference, access-origin, xml, hook
+- rm: access-origin
+
+### Values
+
+See `cordova-config` [APIs](https://github.com/SamVerschueren/cordova-config#api) to find value signature of the method
+
+### Options
+
+- --config: **required**, **string**, path of config.xml if not set? use a current path for reading'
+
 
 
 ## License

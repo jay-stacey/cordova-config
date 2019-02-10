@@ -1,8 +1,8 @@
 import test from 'ava';
-import Config from '../';
+import Config from '..';
 
 test('throw error', t => {
-	const config = new Config('fixtures/config.xml');
+	const config = new Config('test/fixtures/config.xml');
 
 	t.throws(config.setAndroidVersionCode.bind(config, 'ab'), 'Please provide a valid Android version code.');
 	t.throws(config.setAndroidVersionCode.bind(config, '1.1'), 'Please provide a valid Android version code.');
@@ -11,14 +11,14 @@ test('throw error', t => {
 });
 
 test('set Android version', t => {
-	const config = new Config('fixtures/config.empty.xml');
+	const config = new Config('test/fixtures/config.empty.xml');
 	config.setAndroidVersionCode('110');
 
 	t.is(config._root.attrib['android-versionCode'], '110');
 });
 
 test('overwrite Android version', t => {
-	const config = new Config('fixtures/config.xml');
+	const config = new Config('test/fixtures/config.xml');
 	config.setAndroidVersionCode(110);
 
 	console.log(config._root.attrib['android-versionCode']);

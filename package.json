@@ -3,21 +3,26 @@
   "version": "0.7.0",
   "description": "Parse and edit the config.xml file of a cordova project",
   "license": "MIT",
-  "repository": "SamVerschueren/cordova-config",
+  "repository": "Yoobic/cordova-config",
   "author": {
     "name": "Sam Verschueren",
     "email": "sam.verschueren@gmail.com"
   },
   "main": "index.js",
   "engines": {
-    "node": ">=0.10"
+    "node": ">=6"
+  },
+  "bin": {
+    "cordova-config": "cli.js"
   },
   "scripts": {
     "test": "xo && nyc ava",
+    "test:only": "nyc ava",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "cli.js"
   ],
   "keywords": [
     "cordova",
@@ -27,14 +32,17 @@
   "dependencies": {
     "elementtree": "^0.1.6",
     "pify": "^2.3.0",
-    "pinkie-promise": "^1.0.0"
+    "pinkie-promise": "^2.0.1",
+    "semver": "^5.6.0"
   },
   "devDependencies": {
-    "ava": "0.16.0",
-    "coveralls": "^2.11.4",
-    "fs-extra": "^0.24.0",
-    "nyc": "^3.2.2",
-    "tempfile": "^1.1.1",
-    "xo": "0.16.0"
+    "ava": "^1.2.1",
+    "coveralls": "^3.0.2",
+    "execa": "^1.0.0",
+    "fs-extra": "^7.0.1",
+    "meow": "^5.0.0",
+    "nyc": "^13.2.0",
+    "tempy": "^0.2.1",
+    "xo": "^0.24.0"
   }
 }

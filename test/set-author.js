@@ -1,8 +1,8 @@
 import test from 'ava';
-import Config from '../';
+import Config from '..';
 
 test('add tag', t => {
-	const config = new Config('fixtures/config.empty.xml');
+	const config = new Config('test/fixtures/config.empty.xml');
 	config.setAuthor('John Doe');
 
 	t.is(config._root._children.length, 1);
@@ -12,7 +12,7 @@ test('add tag', t => {
 });
 
 test('add tag with email attribute', t => {
-	const config = new Config('fixtures/config.empty.xml');
+	const config = new Config('test/fixtures/config.empty.xml');
 	config.setAuthor('John Doe', 'john.doe@testers.com');
 
 	t.is(config._root._children.length, 1);
@@ -22,7 +22,7 @@ test('add tag with email attribute', t => {
 });
 
 test('add tag with email and href attribute', t => {
-	const config = new Config('fixtures/config.empty.xml');
+	const config = new Config('test/fixtures/config.empty.xml');
 	config.setAuthor('John Doe', 'john.doe@testers.com', 'http://john.doe.com');
 
 	t.is(config._root._children.length, 1);
@@ -32,7 +32,7 @@ test('add tag with email and href attribute', t => {
 });
 
 test('overwrite tag', t => {
-	const config = new Config('fixtures/config.xml');
+	const config = new Config('test/fixtures/config.xml');
 	config.setAuthor('John Doe');
 
 	const element = config._doc.find('./author');
@@ -43,7 +43,7 @@ test('overwrite tag', t => {
 });
 
 test('overwrite tag and remove other attributes', t => {
-	const config = new Config('fixtures/config.xml');
+	const config = new Config('test/fixtures/config.xml');
 	config.setAuthor('John Doe', 'john.doe@testers.com');
 
 	const element = config._doc.find('./author');

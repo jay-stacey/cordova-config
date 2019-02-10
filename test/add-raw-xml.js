@@ -1,8 +1,8 @@
 import test from 'ava';
-import Config from '../';
+import Config from '..';
 
 test('add access origin with an option', t => {
-	const config = new Config('fixtures/config.empty.xml');
+	const config = new Config('test/fixtures/config.empty.xml');
 	config.addRawXML(`
 	<platform name="android">
 		<icon src="res/android/ldpi.png" density="ldpi" />

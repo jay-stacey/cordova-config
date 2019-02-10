@@ -1,8 +1,8 @@
 import test from 'ava';
-import Config from '../';
+import Config from '..';
 
 test('throw error if id has non IRI character', t => {
-	const config = new Config('fixtures/config.xml');
+	const config = new Config('test/fixtures/config.xml');
 
 	t.throws(config.setID.bind(config, '*.wrongid.com'), Error);
 	t.throws(config.setID.bind(config, '$.wrongid.com'), Error);
@@ -10,7 +10,7 @@ test('throw error if id has non IRI character', t => {
 });
 
 test('set ID', t => {
-	const config = new Config('fixtures/config.xml');
+	const config = new Config('test/fixtures/config.xml');
 	config.setID('com.my.app');
 
 	t.is(config._root.attrib.id, 'com.my.app');
