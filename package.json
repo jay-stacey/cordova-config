@@ -18,7 +18,8 @@
   "scripts": {
     "test": "xo && nyc ava",
     "test:only": "nyc ava",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "release": "mcfly-semantic-release"
   },
   "files": [
     "index.js",
