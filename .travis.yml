@@ -8,8 +8,8 @@ after_script:
 
 deploy:
   provider: npm
-  email: thaiat@ipelia.com
-  api_key: $NPM_API_KEY
+  email: dev@yoobic.com
+  api_key: $NPM_KEY
   on:
     tags: true
     all_branches: true
