@@ -5,3 +5,13 @@ node_js:
 
 after_script:
   - npm run coveralls
+
+deploy:
+  provider: npm
+  email: thaiat@ipelia.com
+  api_key: $NPM_API_KEY
+  on:
+    tags: true
+    all_branches: true
+    node: '8'
+    repo: Yoobic/config-cordova
