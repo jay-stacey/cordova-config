@@ -3,11 +3,7 @@
   "version": "0.8.4",
   "description": "Parse and edit the config.xml file of a cordova project",
   "license": "MIT",
-  "repository": "Yoobic/cordova-config",
-  "author": {
-    "name": "Yoobic",
-    "email": "dev@yoobic.com"
-  },
+  "repository": "jay-stacey/cordova-config",
   "main": "index.js",
   "engines": {
     "node": ">=6"
