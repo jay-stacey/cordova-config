@@ -200,7 +200,7 @@ module.exports = (function () {
 	 * @param {string}	version		The iOS CFBundleVersion.
 	 */
 	Config.prototype.setIOSBundleVersion = function (version) {
-		const regex = new RegExp('^[0-9][0-9]*(.[0-9]+){0,2}$'); // eslint-disable-line unicorn/regex-shorthand
+		const regex = new RegExp('^[0-9][0-9]*(.[0-9]+){0,2}[abd][0-9])?$'); // eslint-disable-line unicorn/regex-shorthand
 
 		if (!regex.test(version)) {
 			// If the version is not valid, throw an error.
